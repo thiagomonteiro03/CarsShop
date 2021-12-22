@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.example.carsshop.utils.Util" />
+        <variable
+            name="carModel"
+            type="com.example.carsshop.model.CarModel" />
+        <variable
+            name="viewModel"
+            type="com.example.carsshop.ui.CarListFragment.CarListViewModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/fragment"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:layout_marginTop = "@dimen/low_margin"
+        android:layout_marginLeft="@dimen/low_margin"
+        android:layout_marginRight="@dimen/low_margin"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="4dp"
+        app:cardMaxElevation="3dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="false">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/car_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:transitionName="expand_transition"
+                app:profileImage='@{carModel.image}'
+                tools:srcCompat="@tools:sample/backgrounds/scenic"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="110dp"
+                android:orientation="vertical"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorDarkSemiTransparent"
+                android:alpha="0.8">
+
+                <TextView
+                    android:id="@+id/car_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/low_margin"
+                    android:layout_marginTop="@dimen/low_margin"
+                    android:layout_marginEnd="@dimen/low_margin"
+                    android:layout_marginBottom="@dimen/low_margin"
+                    android:text='@{carModel.model?? ""}'
+                    android:textColor="#FFFFFF"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:id="@+id/car_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:padding="@dimen/low_margin"
+                    android:textColor="#FFFFFF"
+                    android:text='@{carModel.yearFab?? ""}' />
+
+                <TextView
+                    android:id="@+id/car_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:textColor="#FFFFFF"
+                    android:padding="@dimen/low_margin"
+                    android:text='@{Util.getRealCurrency(carModel.price)}' />
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>
