@@ -11,7 +11,7 @@ data class CarModel(
     val Version : String,
     val Image : String,
     val KM : Double,
-    val Price : Double,
+    val Price : String,
     val YearModel : Int,
     val YearFab : Int,
     val Color : String) : Parcelable

@@ -78,7 +78,7 @@
                     android:layout_alignParentBottom="true"
                     android:textColor="#FFFFFF"
                     android:padding="@dimen/low_margin"
-                    android:text='@{Util.getRealCurrency(carModel.price)}' />
+                    android:text='@{Util.getRealCurrency(carModel.price?? "")}' />
             </RelativeLayout>
         </RelativeLayout>
 

@@ -35,9 +35,8 @@ open class Util {
         }
 
         @JvmStatic
-        fun getRealCurrency(valor: Double?): String {
-            val nf: NumberFormat = NumberFormat.getCurrencyInstance()
-            return nf.format(valor) ?: ""
+        fun getRealCurrency(valor: String?): String {
+            return "$valor R$"
         }
     }
 }
