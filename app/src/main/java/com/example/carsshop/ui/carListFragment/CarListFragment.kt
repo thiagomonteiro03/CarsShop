@@ -1,4 +1,4 @@
-package com.example.carsshop.ui.CarListFragment
+package com.example.carsshop.ui.carListFragment
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -22,8 +22,8 @@ class CarListFragment : Fragment() {
         "http://desafioonline.webmotors.com.br/content/img/02.jpg",
         47500.0,
         49000.00,
-        1,
-        1,
+        100,
+        100,
         "Azul"),
         CarModel(
             2,
@@ -33,8 +33,8 @@ class CarListFragment : Fragment() {
             "http://desafioonline.webmotors.com.br/content/img/01.jpg",
             47500.0,
             49000.00,
-            1,
-            1,
+            100,
+            100,
             "Preto")
     )
 

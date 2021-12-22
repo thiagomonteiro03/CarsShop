@@ -1,4 +1,4 @@
-package com.example.carsshop.ui.CarListFragment
+package com.example.carsshop.ui.carListFragment
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

@@ -10,7 +10,7 @@
             type="com.example.carsshop.model.CarModel" />
         <variable
             name="viewModel"
-            type="com.example.carsshop.ui.CarListFragment.CarListViewModel" />
+            type="com.example.carsshop.ui.carListFragment.CarListViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -67,7 +67,7 @@
                     android:layout_alignParentBottom="true"
                     android:padding="@dimen/low_margin"
                     android:textColor="#FFFFFF"
-                    android:text='@{carModel.yearFab?? ""}' />
+                    android:text='@{carModel.yearFab + ""}' />
 
                 <TextView
                     android:id="@+id/car_price"
