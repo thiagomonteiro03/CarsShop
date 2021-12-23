@@ -12,7 +12,7 @@ class CarRepository {
             val retrofitClient = RetrofitUtils
                 .getRetrofitInstance(RetrofitConstants.URL)
             val endpoint = retrofitClient.create(RetrofitInterface::class.java)
-            endpoint.getCars(3)
+            endpoint.getCars(1)
         }
     }
 }

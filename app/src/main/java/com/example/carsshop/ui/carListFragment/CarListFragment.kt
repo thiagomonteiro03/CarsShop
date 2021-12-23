@@ -1,47 +1,33 @@
 package com.example.carsshop.ui.carListFragment
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.ViewModelProvider
+import com.example.carsshop.R
 import com.example.carsshop.databinding.CarsListFragmentBinding
 import com.example.carsshop.model.CarModel
 import com.example.carsshop.service.CarRepository
 import kotlinx.android.synthetic.main.cars_list_fragment.*
 
+
 class CarListFragment : Fragment() {
 
     private var adapter: CarListAdapter? = null
     private var binding: CarsListFragmentBinding? = null
-    private var carList: ArrayList<CarModel> = arrayListOf(
-//        CarModel(
-//        1,
-//        "Corsa",
-//        "Corsa Hetch",
-//        "1.0",
-//        "http://desafioonline.webmotors.com.br/content/img/02.jpg",
-//        47500.0,
-//        49000.00,
-//        100,
-//        100,
-//        "Azul"),
-//        CarModel(
-//            2,
-//            "Corsao",
-//            "Corsa Hetchzao",
-//            "1.0",
-//            "http://desafioonline.webmotors.com.br/content/img/01.jpg",
-//            47500.0,
-//            49000.00,
-//            100,
-//            100,
-//            "Preto")
-    )
+    private var carList: ArrayList<CarModel> = arrayListOf()
 
     private lateinit var viewModel: CarListViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        requireActivity().menuInflater.inflate(R.menu.list_car_menu, menu)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -36,7 +36,7 @@ open class Util {
 
         @JvmStatic
         fun getRealCurrency(valor: String?): String {
-            return "$valor R$"
+            return "R\$ $valor"
         }
     }
 }
