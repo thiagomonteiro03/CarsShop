@@ -7,13 +7,7 @@
         android:icon="@drawable/ic_search"
         android:orderInCategory="100"
         app:showAsAction="always"
-        android:title="@string/search" />
-
-    <item
-        android:id="@+id/menu_filter"
-        android:icon="@drawable/ic_filter"
-        android:orderInCategory="200"
-        app:showAsAction="ifRoom"
-        android:title="@string/filter" />
+        android:title="@string/search"
+        app:actionViewClass="android.widget.SearchView"/>
 
 </menu>

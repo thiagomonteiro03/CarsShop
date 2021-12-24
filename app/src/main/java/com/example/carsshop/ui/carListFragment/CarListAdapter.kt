@@ -6,9 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.carsshop.databinding.CarItemBinding
 import com.example.carsshop.model.CarModel
+import java.util.*
+import java.util.logging.Filter
+import java.util.ArrayList
+
+
+
 
 class CarListAdapter(
-    private var cars: ArrayList<CarModel>,
+    var cars: ArrayList<CarModel>,
     private val viewModel: CarListViewModel,
 ) : RecyclerView.Adapter<ViewHolder>() {
 
@@ -16,13 +22,6 @@ class CarListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun setCars(carsList: ArrayList<CarModel>) {
-        cars.clear()
-        cars.addAll(carsList)
-        this.notifyDataSetChanged()
     }
 
     override fun getItemCount() = cars.size
