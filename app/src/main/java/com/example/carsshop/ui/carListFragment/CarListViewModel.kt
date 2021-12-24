@@ -33,7 +33,7 @@ class CarListViewModel(private val repository: CarRepository) : ViewModel() {
                     carListApi = response.body() as List<CarModel>?
                 }
             }
-            if(carListApi != null) {
+            if(carListApi != null && carListApi!!.size == 10) {
                 carList.addAll(carListApi!!)
                 _cars.value = carList
             }
@@ -43,10 +43,10 @@ class CarListViewModel(private val repository: CarRepository) : ViewModel() {
 
     companion object {
         @JvmStatic
-        @BindingAdapter("profileImage")
+        @BindingAdapter("detailImage")
         fun loadImage(view: ImageView, imageUrl: String?) {
             Glide.with(view.context)
-                .load(imageUrl).apply(RequestOptions().centerCrop())
+                .load(imageUrl).apply(RequestOptions().fitCenter())
                 .into(view)
         }
     }

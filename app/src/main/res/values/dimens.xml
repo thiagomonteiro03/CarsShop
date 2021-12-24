@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="low_margin">8dp</dimen>
-    <dimen name="text_mid_height">24sp</dimen>
+    <dimen name="text_mid_size">24sp</dimen>
+    <dimen name="text_low_size">16sp</dimen>
+    <dimen name="appbar_height">300dp</dimen>
+    <dimen name="high_margin">16dp</dimen>
+    <dimen name="drawable_view_height">100dp</dimen>
 </resources>

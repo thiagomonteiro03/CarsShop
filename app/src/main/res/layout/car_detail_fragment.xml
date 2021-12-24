@@ -1,13 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.example.carsshop.utils.Util" />
+        <variable
+            name="carModel"
+            type="com.example.carsshop.model.CarModel" />
+        <variable
+            name="viewModel"
+            type="com.example.carsshop.ui.carDetailFragment.CarDetailViewModel" />
+    </data>
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.carDetailFragment.CarDetailFragment">
+    tools:context=".MainActivity">
 
-    <TextView
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/appbar_height"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            android:background="@color/white"
+            app:contentScrim="@color/colorPrimary"
+            app:expandedTitleMarginBottom="@dimen/high_margin"
+            app:expandedTitleMarginStart="@dimen/high_margin"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+            <ImageView
+                android:id="@+id/imageEvent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/app_name"
+                android:fitsSystemWindows="true"
+                app:detailImage='@{Util.changeLinkToHttps(carModel.image)}'
+                app:layout_collapseMode="parallax"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/drawable_view_height"
+                android:layout_gravity="bottom"
+                android:background="@drawable/title_background"/>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:overScrollMode="never"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/titleEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/low_margin"
+                android:paddingStart="@dimen/high_margin"
+                android:text='@{carModel.make + " " + carModel.model?? ""}'
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:background="@color/colorPrimary"/>
+
+            <TextView
+                android:id="@+id/car_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/high_margin"
+                android:text='@{Util.getRealCurrency(carModel.price?? "")}'
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:background="@color/colorPrimary"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/high_margin"
+                android:orientation="horizontal"
+                android:padding="@dimen/high_margin">
+
+                <TextView
+                    android:id="@+id/car_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/low_margin"
+                    android:text='@{carModel.yearFab + "/" + carModel.yearModel?? ""}'
+                    android:textColor="@color/black"
+                    app:drawableTopCompat="@drawable/ic_calendar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="16dp" />
+
+                <TextView
+                    android:id="@+id/car_kilometer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/low_margin"
+                    android:text='@{carModel.KM + " Km"}'
+                    android:textColor="@color/black"
+                    app:drawableTopCompat="@drawable/ic_car"
+                    app:layout_constraintEnd_toStartOf="@+id/car_color"
+                    app:layout_constraintStart_toEndOf="@+id/car_year"
+                    tools:layout_editor_absoluteY="16dp" />
+
+                <TextView
+                    android:id="@+id/car_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/low_margin"
+                    android:text='@{carModel.color?? ""}'
+                    android:textColor="@color/black"
+                    app:drawableTopCompat="@drawable/ic_color"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:layout_editor_absoluteY="16dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/low_margin"
+                android:paddingStart="@dimen/high_margin"
+                android:text='@{"Montadora: " + carModel.make}'
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_low_size"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/low_margin"
+                android:paddingStart="@dimen/high_margin"
+                android:text='@{"Modelo: " + carModel.model}'
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_low_size"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/low_margin"
+                android:paddingStart="@dimen/high_margin"
+                android:text='@{"Versão: " + carModel.version}'
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_low_size"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

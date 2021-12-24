@@ -9,5 +9,19 @@
         android:id="@+id/carsListFragment"
         android:name="com.example.carsshop.ui.carListFragment.CarListFragment"
         android:label="cars_list_fragment"
-        tools:layout="@layout/cars_list_fragment" />
+        tools:layout="@layout/cars_list_fragment" >
+        <action
+            android:id="@+id/action_carsListFragment_to_carDetailFragment"
+            app:destination="@id/carDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/carDetailFragment"
+        android:name="com.example.carsshop.ui.carDetailFragment.CarDetailFragment"
+        android:label="CarDetailFragment"
+        tools:layout="@layout/car_detail_fragment">
+        <argument
+            android:name="carModel"
+            app:argType="com.example.carsshop.model.CarModel"
+            app:nullable="true" />
+    </fragment>
 </navigation>

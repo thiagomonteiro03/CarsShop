@@ -86,7 +86,7 @@
                     android:layout_alignParentEnd="true"
                     android:padding="@dimen/low_margin"
                     android:text='@{Util.getRealCurrency(carModel.price?? "")}'
-                    android:textSize="@dimen/text_mid_height"
+                    android:textSize="@dimen/text_mid_size"
                     android:textColor="#FFFFFF"
                     tools:text="R$ 49,0000"/>
             </RelativeLayout>

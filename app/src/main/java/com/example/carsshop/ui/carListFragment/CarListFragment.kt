@@ -12,7 +12,9 @@ import kotlinx.android.synthetic.main.cars_list_fragment.*
 
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.carsshop.utils.navigateWithAnimations
 
 
 class CarListFragment : Fragment() {
@@ -56,12 +58,11 @@ class CarListFragment : Fragment() {
         viewModel.loadCars(carList, position)
 
         viewModel.cars.observe(viewLifecycleOwner, {
-//            adapter?.setEvents(it)
             val carListAdapter = CarListAdapter(it, viewModel).apply {
-//                onItemClick = { event ->
-//                    val directions = EventListFragmentDirections.actionEventListFragmentToEventFragment()
-//                    findNavController().navigateWithAnimations(directions)
-//                }
+                onItemClick = { carModel ->
+                    val directions = CarListFragmentDirections.actionCarsListFragmentToCarDetailFragment(carModel)
+                    findNavController().navigateWithAnimations(directions)
+                }
             }
 
             if (position == 1) {

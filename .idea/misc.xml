@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.20416666666666666" />
+        <entry key="app/src/main/res/drawable/tittle_background.xml" value="0.26614583333333336" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.296195652173913" />
+        <entry key="app/src/main/res/layout/car_detail_fragment.xml" value="0.33" />
         <entry key="app/src/main/res/layout/car_item.xml" value="0.1890625" />
         <entry key="app/src/main/res/layout/cars_list_fragment.xml" value="0.175" />
         <entry key="app/src/main/res/menu/list_car_menu.xml" value="0.1890625" />

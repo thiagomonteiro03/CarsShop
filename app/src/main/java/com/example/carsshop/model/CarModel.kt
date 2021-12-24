@@ -10,7 +10,7 @@ data class CarModel(
     val Model: String,
     val Version : String,
     val Image : String,
-    val KM : Double,
+    val KM : Int,
     val Price : String,
     val YearModel : Int,
     val YearFab : Int,
