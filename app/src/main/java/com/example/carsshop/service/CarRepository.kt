@@ -7,12 +7,12 @@ import retrofit2.Response
 
 class CarRepository {
 
-    suspend fun getApiData(): Response<List<CarModel?>> {
+    suspend fun getApiData(page: Int): Response<List<CarModel?>> {
          return withContext(Dispatchers.Default) {
             val retrofitClient = RetrofitUtils
                 .getRetrofitInstance(RetrofitConstants.URL)
             val endpoint = retrofitClient.create(RetrofitInterface::class.java)
-            endpoint.getCars(1)
+            endpoint.getCars(page)
         }
     }
 }

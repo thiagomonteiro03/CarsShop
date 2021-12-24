@@ -10,12 +10,21 @@ import com.example.carsshop.model.CarModel
 import com.example.carsshop.service.CarRepository
 import kotlinx.android.synthetic.main.cars_list_fragment.*
 
+import androidx.recyclerview.widget.RecyclerView
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+
 
 class CarListFragment : Fragment() {
 
     private var adapter: CarListAdapter? = null
     private var binding: CarsListFragmentBinding? = null
     private var carList: ArrayList<CarModel> = arrayListOf()
+    private var position: Int = 1
+
+    private lateinit var layoutManager: LinearLayoutManager
+    var initialSkip = 0
+    var initialTop = 10
 
     private lateinit var viewModel: CarListViewModel
 
@@ -33,6 +42,7 @@ class CarListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        layoutManager = LinearLayoutManager(context)
         binding = CarsListFragmentBinding.inflate(layoutInflater, container, false)
         return binding!!.root
     }
@@ -43,7 +53,7 @@ class CarListFragment : Fragment() {
             this,
             CarListViewModel.CarListViewModelFactory(CarRepository()))[CarListViewModel::class.java]
 
-        viewModel.loadCars()
+        viewModel.loadCars(carList, position)
 
         viewModel.cars.observe(viewLifecycleOwner, {
 //            adapter?.setEvents(it)
@@ -54,9 +64,15 @@ class CarListFragment : Fragment() {
 //                }
             }
 
-            with(recyclerBooks) {
-                setHasFixedSize(true)
-                adapter = carListAdapter
+            if (position == 1) {
+                with(recyclerBooks) {
+                    setHasFixedSize(false)
+                    adapter = carListAdapter
+                }
+            } else {
+                with(recyclerBooks) {
+                    adapter?.notifyDataSetChanged()
+                }
             }
         })
 
@@ -75,7 +91,29 @@ class CarListFragment : Fragment() {
         binding?.recyclerBooks?.let {
             this.adapter = CarListAdapter(carList, viewModel)
             it.adapter = this.adapter
+            it.addOnScrollListener(recyclerViewOnScrollListener)
+            it.layoutManager = layoutManager
         } ?: throw AssertionError()
     }
+
+    private val recyclerViewOnScrollListener: RecyclerView.OnScrollListener =
+        object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val visibleItemCount: Int = layoutManager.childCount
+                val totalItemCount: Int = layoutManager.itemCount
+                val firstVisibleItemPosition: Int = layoutManager.findFirstVisibleItemPosition()
+                if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                    && firstVisibleItemPosition >= 0
+                    && totalItemCount >= initialTop) {
+                        position++
+                        viewModel.loadCars(carList, position)
+                }
+            }
+        }
 
 }

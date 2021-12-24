@@ -17,24 +17,27 @@ import kotlinx.coroutines.withContext
 
 class CarListViewModel(private val repository: CarRepository) : ViewModel() {
 
-    private val _cars = MutableLiveData<List<CarModel>>()
-    val cars : LiveData<List<CarModel>>
+    private val _cars = MutableLiveData<ArrayList<CarModel>>()
+    val cars : LiveData<ArrayList<CarModel>>
         get() = _cars
 
     val loading = MutableLiveData<Boolean>()
 
-    fun loadCars() {
+    fun loadCars(carList : ArrayList<CarModel>, page: Int) {
         loading.value = true
-        var carList: List<CarModel>? = null
+        var carListApi: List<CarModel>? = null
         CoroutineScope(Dispatchers.Main).launch {
-            val response = repository.getApiData()
+            val response = repository.getApiData(page)
             withContext(Dispatchers.Default) {
                 if (response.isSuccessful){
-                    carList = response.body() as List<CarModel>?
+                    carListApi = response.body() as List<CarModel>?
                 }
             }
+            if(carListApi != null) {
+                carList.addAll(carListApi!!)
+                _cars.value = carList
+            }
             loading.value = false
-            _cars.value = carList?: listOf()
         }
     }
 
@@ -43,7 +46,7 @@ class CarListViewModel(private val repository: CarRepository) : ViewModel() {
         @BindingAdapter("profileImage")
         fun loadImage(view: ImageView, imageUrl: String?) {
             Glide.with(view.context)
-                .load(imageUrl).apply(RequestOptions().circleCrop())
+                .load(imageUrl).apply(RequestOptions().centerCrop())
                 .into(view)
         }
     }

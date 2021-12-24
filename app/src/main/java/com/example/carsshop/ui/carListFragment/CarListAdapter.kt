@@ -8,7 +8,7 @@ import com.example.carsshop.databinding.CarItemBinding
 import com.example.carsshop.model.CarModel
 
 class CarListAdapter(
-    private var cars: List<CarModel>,
+    private var cars: ArrayList<CarModel>,
     private val viewModel: CarListViewModel,
 ) : RecyclerView.Adapter<ViewHolder>() {
 
@@ -19,8 +19,9 @@ class CarListAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setCars(cars: List<CarModel>) {
-        this.cars = cars
+    fun setCars(carsList: ArrayList<CarModel>) {
+        cars.clear()
+        cars.addAll(carsList)
         this.notifyDataSetChanged()
     }
 
