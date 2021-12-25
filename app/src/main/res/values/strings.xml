@@ -2,4 +2,5 @@
     <string name="app_name">CarsShop</string>
     <string name="search">Search</string>
     <string name="filter">Filter</string>
+    <string name="any_error_occurrent">Ocorreu algum erro inesperado no download das informações.</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.carsshop.ui.carListFragment
 
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.carsshop.R
 import com.example.carsshop.model.CarModel
 import com.example.carsshop.service.CarRepository
 import kotlinx.coroutines.CoroutineScope
@@ -23,9 +25,12 @@ class CarListViewModel(private val repository: CarRepository) : ViewModel() {
 
     val loading = MutableLiveData<Boolean>()
 
+    val error = MutableLiveData<Boolean>()
+
     fun loadCars(carList : ArrayList<CarModel>, page: Int) {
         loading.value = true
         var carListApi: List<CarModel>? = null
+
         CoroutineScope(Dispatchers.Main).launch {
             val response = repository.getApiData(page)
             withContext(Dispatchers.Default) {
@@ -36,7 +41,7 @@ class CarListViewModel(private val repository: CarRepository) : ViewModel() {
             if(carListApi != null && carListApi!!.size == 10) {
                 carList.addAll(carListApi!!)
                 _cars.value = carList
-            }
+            } else if (carListApi == null)error.value = true
             loading.value = false
         }
     }

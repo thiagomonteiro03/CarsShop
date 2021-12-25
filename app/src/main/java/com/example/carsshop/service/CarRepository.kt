@@ -5,7 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 
-class CarRepository {
+interface CarRepository {
 
     suspend fun getApiData(page: Int): Response<List<CarModel?>> {
          return withContext(Dispatchers.Default) {

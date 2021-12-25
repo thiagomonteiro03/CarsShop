@@ -1,27 +1,21 @@
 package com.example.carsshop.ui.carListFragment
 
-import android.app.SearchManager
-import android.content.ComponentName
-import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.carsshop.R
 import com.example.carsshop.databinding.CarsListFragmentBinding
 import com.example.carsshop.model.CarModel
 import com.example.carsshop.service.CarRepository
-import kotlinx.android.synthetic.main.cars_list_fragment.*
-
-import androidx.recyclerview.widget.RecyclerView
-import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.carsshop.utils.navigateWithAnimations
+import kotlinx.android.synthetic.main.cars_list_fragment.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class CarListFragment : Fragment() {
@@ -33,7 +27,6 @@ class CarListFragment : Fragment() {
     private var position: Int = 1
 
     private lateinit var layoutManager: LinearLayoutManager
-    var initialSkip = 0
     var initialTop = 10
 
     private lateinit var viewModel: CarListViewModel
@@ -87,19 +80,11 @@ class CarListFragment : Fragment() {
             }
         })
 
-    }
+        viewModel.error.observe(viewLifecycleOwner, {
+            if (it) Toast.makeText(requireContext(), R.string.any_error_occurrent, Toast.LENGTH_LONG).show()
+        })
 
-//    fun filter(text: String, cars: ArrayList<CarModel>): ArrayList<CarModel> {
-//        val temp = ArrayList<CarModel>()
-//        for (d in cars) {
-//            //or use .equal(text) with you want equal match
-//            //use .toLowerCase() for better matches
-//            if (d.toString().contains(text.to)) {
-//                temp.add(d)
-//            }
-//        }
-//        return temp
-//    }
+    }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
@@ -143,6 +128,7 @@ class CarListFragment : Fragment() {
             }
             override fun onQueryTextChange(newText: String?): Boolean {
 
+                //Local search logic created just for example because API don`t have a support to search from get
                 tempCarList.clear()
                 val searchText = newText!!.lowercase(Locale.getDefault())
                 if (searchText.isNotEmpty()){
@@ -153,6 +139,7 @@ class CarListFragment : Fragment() {
                     }
                     refreshAdapter()
                 } else {
+                    tempCarList.clear()
                     tempCarList.addAll(carList)
                     refreshAdapter()
                 }
