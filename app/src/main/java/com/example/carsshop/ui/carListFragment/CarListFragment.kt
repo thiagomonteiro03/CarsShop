@@ -65,40 +65,9 @@ class CarListFragment : Fragment() {
             this,
             CarListViewModel.CarListViewModelFactory(repositoryClass))[CarListViewModel::class.java]
 
-        if(isInternetConnected(requireContext()))viewModel.loadCars(tempCarList, position)
-        else Toast.makeText(requireContext(), R.string.connection_error, Toast.LENGTH_LONG).show()
-
-        viewModel.cars.observe(viewLifecycleOwner, {
-            carList.addAll(it)
-            val carListAdapter = CarListAdapter(it, viewModel).apply {
-                onItemClick = { carModel ->
-                    val directions = CarListFragmentDirections.actionCarsListFragmentToCarDetailFragment(carModel)
-                    findNavController().navigateWithAnimations(directions)
-                }
-            }
-
-            if (position == 1) {
-                with(recyclerBooks) {
-                    setHasFixedSize(false)
-                    adapter = carListAdapter
-                }
-            } else {
-                refreshAdapter()
-            }
-        })
-
-        viewModel.loading.observe(viewLifecycleOwner, {
-            if (it) {
-                binding!!.progressBarHome.visibility = View.VISIBLE
-            } else {
-                binding!!.progressBarHome.visibility = View.GONE
-            }
-        })
-
-        viewModel.error.observe(viewLifecycleOwner, {
-            if (it) Toast.makeText(requireContext(), R.string.any_error_occurrent, Toast.LENGTH_LONG).show()
-        })
-
+        loadItems()
+        setSwipeRefresh()
+        setObserversItems()
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -182,6 +151,53 @@ class CarListFragment : Fragment() {
             }
         }
         return status
+    }
+
+    fun setSwipeRefresh(){
+        binding?.swiperefresh.let {
+            it!!.setOnRefreshListener {
+                loadItems()
+            }
+        }
+    }
+
+    fun loadItems(){
+        if(isInternetConnected(requireContext()))viewModel.loadCars(tempCarList, position)
+        else Toast.makeText(requireContext(), R.string.connection_error, Toast.LENGTH_LONG).show()
+    }
+
+    fun setObserversItems(){
+        viewModel.cars.observe(viewLifecycleOwner, {
+            carList.addAll(it)
+            val carListAdapter = CarListAdapter(it, viewModel).apply {
+                onItemClick = { carModel ->
+                    val directions = CarListFragmentDirections.actionCarsListFragmentToCarDetailFragment(carModel)
+                    findNavController().navigateWithAnimations(directions)
+                }
+            }
+
+            if (position == 1) {
+                with(recyclerBooks) {
+                    setHasFixedSize(false)
+                    adapter = carListAdapter
+                }
+            } else {
+                refreshAdapter()
+            }
+            binding?.swiperefresh?.isRefreshing = false
+        })
+
+        viewModel.loading.observe(viewLifecycleOwner, {
+            if (it) {
+                binding!!.progressBarHome.visibility = View.VISIBLE
+            } else {
+                binding!!.progressBarHome.visibility = View.GONE
+            }
+        })
+
+        viewModel.error.observe(viewLifecycleOwner, {
+            if (it) Toast.makeText(requireContext(), R.string.any_error_occurrent, Toast.LENGTH_LONG).show()
+        })
     }
 
 }
