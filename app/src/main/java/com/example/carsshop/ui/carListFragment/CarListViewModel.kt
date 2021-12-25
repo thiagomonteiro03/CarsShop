@@ -14,6 +14,7 @@ import com.example.carsshop.model.CarModel
 import com.example.carsshop.service.CarRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response

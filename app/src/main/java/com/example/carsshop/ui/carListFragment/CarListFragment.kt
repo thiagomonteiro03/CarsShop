@@ -162,8 +162,16 @@ class CarListFragment : Fragment() {
     }
 
     fun loadItems(){
-        if(isInternetConnected(requireContext()))viewModel.loadCars(tempCarList, position)
-        else Toast.makeText(requireContext(), R.string.connection_error, Toast.LENGTH_LONG).show()
+        if(isInternetConnected(requireContext())){
+            viewModel.loadCars(tempCarList, position)
+            binding?.clWifiOff?.visibility = View.GONE
+        }
+        else {
+            if(carList.isNullOrEmpty()){
+                binding?.clWifiOff?.visibility = View.VISIBLE
+            }
+            binding?.swiperefresh?.isRefreshing = false
+        }
     }
 
     fun setObserversItems(){
