@@ -137,7 +137,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/low_margin"
                 android:paddingStart="@dimen/high_margin"
-                android:text='@{"Montadora: " + carModel.make}'
+                android:text='@{@string/car_detail_make_label + " " + carModel.make}'
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_low_size"/>
 
@@ -146,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/low_margin"
                 android:paddingStart="@dimen/high_margin"
-                android:text='@{"Modelo: " + carModel.model}'
+                android:text='@{@string/car_detail_model_label + " " + carModel.model}'
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_low_size"/>
 
@@ -155,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/low_margin"
                 android:paddingStart="@dimen/high_margin"
-                android:text='@{"Versão: " + carModel.version}'
+                android:text='@{@string/car_detail_version_label + " " + carModel.version}'
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_low_size"/>
 

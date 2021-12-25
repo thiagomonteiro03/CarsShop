@@ -1,7 +1,18 @@
 <resources>
     <string name="app_name">CarsShop</string>
+
+    <!--    Car List Fragment-->
     <string name="search">Search</string>
-    <string name="filter">Filter</string>
+    <string name="search_hint">Pesquise algum veículo…</string>
+
+
+    <!--    Car Detail Fragment-->
+    <string name="car_detail_make_label">Montadora:</string>
+    <string name="car_detail_model_label">Model:</string>
+    <string name="car_detail_version_label">Versão:</string>
+
+    <!--    Api feedback-->
     <string name="any_error_occurrent">Ocorreu algum erro inesperado no download das informações.</string>
     <string name="connection_error">Não foi identificado conexão com internet.</string>
+
 </resources>

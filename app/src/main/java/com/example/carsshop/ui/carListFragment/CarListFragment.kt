@@ -25,9 +25,9 @@ import android.net.NetworkInfo
 import android.net.NetworkCapabilities
 
 import android.os.Build
-
-
-
+import android.os.Handler
+import okio.Timeout
+import kotlin.concurrent.schedule
 
 
 class CarListFragment : Fragment() {
@@ -105,7 +105,7 @@ class CarListFragment : Fragment() {
 
         val search = menu.findItem(R.id.menu_search)
         val searchView = search.actionView as SearchView
-        searchView.queryHint = "Pesquise algum modelo..."
+        searchView.queryHint = R.string.search_hint.toString()
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -165,6 +165,10 @@ class CarListFragment : Fragment() {
         if(isInternetConnected(requireContext())){
             viewModel.loadCars(tempCarList, position)
             binding?.clWifiOff?.visibility = View.GONE
+            Timer().schedule(2000) {
+                binding?.swiperefresh?.isRefreshing = false
+            }
+
         }
         else {
             if(carList.isNullOrEmpty()){

@@ -5,7 +5,6 @@ import androidx.lifecycle.Observer
 import com.example.carsshop.model.CarModel
 import com.example.carsshop.service.CarRepository
 import com.nhaarman.mockitokotlin2.verify
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
