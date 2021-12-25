@@ -1,37 +1,57 @@
 package com.example.carsshop.ui.carListFragment
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Observer
 import com.example.carsshop.model.CarModel
 import com.example.carsshop.service.CarRepository
-import com.example.carsshop.service.RetrofitConstants
-import com.example.carsshop.service.RetrofitInterface
-import com.example.carsshop.service.RetrofitUtils
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.nhaarman.mockitokotlin2.verify
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.Mock
+import org.mockito.MockitoAnnotations
 import retrofit2.Response
-import retrofit2.Retrofit
 
 class CarListViewModelTest {
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
+    @Mock
+    private lateinit var carsObserver: Observer<ArrayList<CarModel>>
+
     private lateinit var viewModel: CarListViewModel
+
+    @Before
+    fun setup(){
+        MockitoAnnotations.initMocks(this)
+    }
+
 
     @Test
     fun `when view model getCars get success then sets cars`(){
         // Arrange
-        val cars = listOf(
-            CarModel(1, "Honda", "City", "3.0", "link", 1 ,"30000,00" ,1 ,1 ,"white")
+        val actualCars = arrayListOf(
+            CarModel(1, "Honda", "Civic", "3.0", "link", 1 ,"60000,00" ,1 ,1 ,"black")
         )
+        val cars = listOf(
+            CarModel(2, "Honda", "City", "3.0", "link", 1 ,"30000,00" ,1 ,1 ,"white")
+        )
+        actualCars.add(cars[0])
+
         val repository = MockRepository(Response.success(cars))
         viewModel = CarListViewModel(repository)
+        viewModel.cars.observeForever(carsObserver)
 
         // Act
+        runBlocking {
+            viewModel.getCars(actualCars, 2)
+        }
 
         // Assert
+        verify(carsObserver).onChanged(actualCars)
     }
 }
 

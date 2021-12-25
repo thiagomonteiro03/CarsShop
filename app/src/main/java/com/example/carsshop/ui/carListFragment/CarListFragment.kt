@@ -13,6 +13,7 @@ import com.example.carsshop.R
 import com.example.carsshop.databinding.CarsListFragmentBinding
 import com.example.carsshop.model.CarModel
 import com.example.carsshop.service.CarRepository
+import com.example.carsshop.service.CarRepositoryClass
 import com.example.carsshop.utils.navigateWithAnimations
 import kotlinx.android.synthetic.main.cars_list_fragment.*
 import java.util.*
@@ -47,9 +48,10 @@ class CarListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        val repositoryClass = CarRepositoryClass()
         viewModel = ViewModelProvider(
             this,
-            CarListViewModel.CarListViewModelFactory(CarRepository()))[CarListViewModel::class.java]
+            CarListViewModel.CarListViewModelFactory(repositoryClass))[CarListViewModel::class.java]
 
         viewModel.loadCars(tempCarList, position)
 

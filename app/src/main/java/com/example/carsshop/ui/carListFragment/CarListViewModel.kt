@@ -16,6 +16,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.Response
 
 class CarListViewModel(private val repository: CarRepository) : ViewModel() {
 
@@ -29,16 +30,19 @@ class CarListViewModel(private val repository: CarRepository) : ViewModel() {
 
     fun loadCars(carList : ArrayList<CarModel>, page: Int) {
         loading.value = true
-        var carListApi: List<CarModel>? = null
 
         CoroutineScope(Dispatchers.Main).launch {
-            val response = repository.getApiData(page)
-            withContext(Dispatchers.Default) {
-                if (response.isSuccessful){
-                    carListApi = response.body() as List<CarModel>?
-                }
+            getCars(carList, page)
+        }
+    }
+
+    suspend fun getCars(carList: ArrayList<CarModel>, page: Int){
+        repository.getApiData(page).let {
+            var carListApi: List<CarModel>? = null
+            if (it.isSuccessful){
+                carListApi = it.body() as List<CarModel>?
             }
-            if(carListApi != null && carListApi!!.size == 10) {
+            if(!carListApi.isNullOrEmpty()) {
                 carList.addAll(carListApi!!)
                 _cars.value = carList
             } else if (carListApi == null)error.value = true

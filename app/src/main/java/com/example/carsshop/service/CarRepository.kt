@@ -8,11 +8,6 @@ import retrofit2.Response
 interface CarRepository {
 
     suspend fun getApiData(page: Int): Response<List<CarModel?>> {
-         return withContext(Dispatchers.Default) {
-            val retrofitClient = RetrofitUtils
-                .getRetrofitInstance(RetrofitConstants.URL)
-            val endpoint = retrofitClient.create(RetrofitInterface::class.java)
-            endpoint.getCars(page)
-        }
+         return Response.success(listOf())
     }
 }
