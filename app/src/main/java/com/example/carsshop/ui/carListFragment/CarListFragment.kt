@@ -1,5 +1,6 @@
 package com.example.carsshop.ui.carListFragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.SearchView
@@ -17,6 +18,16 @@ import com.example.carsshop.service.CarRepositoryClass
 import com.example.carsshop.utils.navigateWithAnimations
 import kotlinx.android.synthetic.main.cars_list_fragment.*
 import java.util.*
+import android.net.ConnectivityManager
+
+import android.net.NetworkInfo
+
+import android.net.NetworkCapabilities
+
+import android.os.Build
+
+
+
 
 
 class CarListFragment : Fragment() {
@@ -35,6 +46,7 @@ class CarListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
     }
 
     override fun onCreateView(
@@ -53,7 +65,8 @@ class CarListFragment : Fragment() {
             this,
             CarListViewModel.CarListViewModelFactory(repositoryClass))[CarListViewModel::class.java]
 
-        viewModel.loadCars(tempCarList, position)
+        if(isInternetConnected(requireContext()))viewModel.loadCars(tempCarList, position)
+        else Toast.makeText(requireContext(), R.string.connection_error, Toast.LENGTH_LONG).show()
 
         viewModel.cars.observe(viewLifecycleOwner, {
             carList.addAll(it)
@@ -156,6 +169,19 @@ class CarListFragment : Fragment() {
         with(recyclerBooks) {
             adapter?.notifyDataSetChanged()
         }
+    }
+
+    fun isInternetConnected(getApplicationContext: Context): Boolean {
+        var status = false
+        val cm =
+            getApplicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (cm != null) {
+            if (cm.activeNetwork != null && cm.getNetworkCapabilities(cm.activeNetwork) != null) {
+                // connected to the internet
+                status = true
+            }
+        }
+        return status
     }
 
 }

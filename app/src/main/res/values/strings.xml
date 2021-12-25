@@ -3,4 +3,5 @@
     <string name="search">Search</string>
     <string name="filter">Filter</string>
     <string name="any_error_occurrent">Ocorreu algum erro inesperado no download das informações.</string>
+    <string name="connection_error">Não foi identificado conexão com internet.</string>
 </resources>
