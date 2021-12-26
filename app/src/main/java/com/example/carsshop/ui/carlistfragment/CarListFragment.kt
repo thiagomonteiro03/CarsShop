@@ -116,8 +116,8 @@ class CarListFragment : Fragment() {
                     refreshAdapter()
                 } else {
                     mustScroll = true
-                    tempCarList.clear()
-                    tempCarList.addAll(carList)
+                    position = 1
+                    loadItems()
                     refreshAdapter()
                 }
                 return true
