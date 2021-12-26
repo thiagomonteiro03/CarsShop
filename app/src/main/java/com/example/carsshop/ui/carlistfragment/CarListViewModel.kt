@@ -20,7 +20,7 @@ class CarListViewModel(private val repository: CarRepository) : ViewModel() {
 
     val error : MutableLiveData<Boolean> = MutableLiveData()
 
-    val errorMessage : MutableLiveData<String> = MutableLiveData()
+    val errorMessage : MutableLiveData<Int> = MutableLiveData()
 
     fun loadCars(carList : ArrayList<CarModel>, page: Int) {
         loading.value = true
@@ -41,11 +41,11 @@ class CarListViewModel(private val repository: CarRepository) : ViewModel() {
                 }
 
                 when(it.raw().code){
-                    400 -> errorMessage.value = R.string.connection_error_400.toString()
-                    401 -> errorMessage.value = R.string.connection_error_401.toString()
-                    403 -> errorMessage.value = R.string.connection_error_403.toString()
-                    500 -> errorMessage.value = R.string.connection_error_500.toString()
-                    503 -> errorMessage.value = R.string.connection_error_503.toString()
+                    400 -> errorMessage.value = R.string.connection_error_400
+                    401 -> errorMessage.value = R.string.connection_error_401
+                    403 -> errorMessage.value = R.string.connection_error_403
+                    500 -> errorMessage.value = R.string.connection_error_500
+                    503 -> errorMessage.value = R.string.connection_error_503
                 }
             }
 

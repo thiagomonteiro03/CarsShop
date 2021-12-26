@@ -29,9 +29,10 @@ class CarListFragment : Fragment() {
     private var carList: ArrayList<CarModel> = arrayListOf()
     private var tempCarList: ArrayList<CarModel> = arrayListOf()
     private var position: Int = 1
+    private var initialTop = 10
+    private var mustScroll = true
 
     private lateinit var layoutManager: LinearLayoutManager
-    var initialTop = 10
 
     private lateinit var viewModel: CarListViewModel
 
@@ -74,9 +75,6 @@ class CarListFragment : Fragment() {
 
     private val recyclerViewOnScrollListener: RecyclerView.OnScrollListener =
         object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-            }
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -85,7 +83,8 @@ class CarListFragment : Fragment() {
                 val firstVisibleItemPosition: Int = layoutManager.findFirstVisibleItemPosition()
                 if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
                     && firstVisibleItemPosition >= 0
-                    && totalItemCount >= initialTop) {
+                    && totalItemCount >= initialTop
+                    && mustScroll) {
                         position++
                         viewModel.loadCars(tempCarList, position)
                 }
@@ -97,7 +96,7 @@ class CarListFragment : Fragment() {
 
         val search = menu.findItem(R.id.menu_search)
         val searchView = search.actionView as SearchView
-        searchView.queryHint = R.string.search_hint.toString()
+        searchView.queryHint = getString(R.string.search_hint)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -108,6 +107,7 @@ class CarListFragment : Fragment() {
                 tempCarList.clear()
                 val searchText = newText!!.lowercase(Locale.getDefault())
                 if (searchText.isNotEmpty()){
+                    mustScroll = false
                     carList.forEach {
                         if (it.toString().lowercase(Locale.getDefault()).contains(searchText)){
                             tempCarList.add(it)
@@ -115,6 +115,7 @@ class CarListFragment : Fragment() {
                     }
                     refreshAdapter()
                 } else {
+                    mustScroll = true
                     tempCarList.clear()
                     tempCarList.addAll(carList)
                     refreshAdapter()
@@ -173,6 +174,7 @@ class CarListFragment : Fragment() {
 
     fun setObserversItems(){
         viewModel.cars.observe(viewLifecycleOwner, {
+            carList.clear()
             carList.addAll(it)
             val carListAdapter = CarListAdapter(it, viewModel).apply {
                 onItemClick = { carModel ->
