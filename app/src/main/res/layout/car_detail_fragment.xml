@@ -10,7 +10,7 @@
             type="com.example.carsshop.model.CarModel" />
         <variable
             name="viewModel"
-            type="com.example.carsshop.ui.carDetailFragment.CarDetailViewModel" />
+            type="com.example.carsshop.ui.cardetailfragment.CarDetailViewModel" />
     </data>
 
 <androidx.coordinatorlayout.widget.CoordinatorLayout

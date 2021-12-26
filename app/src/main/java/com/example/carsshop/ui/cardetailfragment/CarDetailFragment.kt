@@ -1,4 +1,4 @@
-package com.example.carsshop.ui.carDetailFragment
+package com.example.carsshop.ui.cardetailfragment
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -7,10 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.carsshop.R
 import com.example.carsshop.databinding.CarDetailFragmentBinding
-import com.example.carsshop.databinding.CarsListFragmentBinding
 
 class CarDetailFragment : Fragment() {
 

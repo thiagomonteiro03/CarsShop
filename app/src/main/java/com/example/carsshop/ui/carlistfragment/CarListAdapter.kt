@@ -1,13 +1,10 @@
-package com.example.carsshop.ui.carListFragment
+package com.example.carsshop.ui.carlistfragment
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.carsshop.databinding.CarItemBinding
 import com.example.carsshop.model.CarModel
-import java.util.*
-import java.util.logging.Filter
 import java.util.ArrayList
 
 

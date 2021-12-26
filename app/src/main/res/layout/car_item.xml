@@ -10,16 +10,14 @@
             type="com.example.carsshop.model.CarModel" />
         <variable
             name="viewModel"
-            type="com.example.carsshop.ui.carListFragment.CarListViewModel" />
+            type="com.example.carsshop.ui.carlistfragment.CarListViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/fragment"
         android:layout_width="match_parent"
         android:layout_height="240dp"
-        android:layout_marginTop = "@dimen/low_margin"
-        android:layout_marginLeft="@dimen/low_margin"
-        android:layout_marginRight="@dimen/low_margin"
+        android:layout_margin="@dimen/high_margin"
         app:cardCornerRadius="5dp"
         app:cardElevation="4dp"
         app:cardMaxElevation="3dp"

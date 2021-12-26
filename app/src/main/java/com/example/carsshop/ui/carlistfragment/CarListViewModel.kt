@@ -1,23 +1,13 @@
-package com.example.carsshop.ui.carListFragment
+package com.example.carsshop.ui.carlistfragment
 
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.carsshop.R
 import com.example.carsshop.model.CarModel
 import com.example.carsshop.service.CarRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import retrofit2.Response
 
 class CarListViewModel(private val repository: CarRepository) : ViewModel() {
 
@@ -27,12 +17,12 @@ class CarListViewModel(private val repository: CarRepository) : ViewModel() {
 
     val loading = MutableLiveData<Boolean>()
 
-    val error = MutableLiveData<Boolean>()
+    val error : MutableLiveData<Boolean> = MutableLiveData()
 
     fun loadCars(carList : ArrayList<CarModel>, page: Int) {
         loading.value = true
 
-        CoroutineScope(Dispatchers.Main).launch {
+        viewModelScope.launch {
             getCars(carList, page)
         }
     }
@@ -42,11 +32,13 @@ class CarListViewModel(private val repository: CarRepository) : ViewModel() {
             var carListApi: List<CarModel>? = null
             if (it.isSuccessful){
                 carListApi = it.body() as List<CarModel>?
-            }
-            if(!carListApi.isNullOrEmpty()) {
-                carList.addAll(carListApi!!)
-                _cars.value = carList
             } else if (carListApi == null)error.value = true
+
+            if(!carListApi.isNullOrEmpty()) {
+                carList.addAll(carListApi)
+                _cars.value = carList
+            }
+
             loading.value = false
         }
     }

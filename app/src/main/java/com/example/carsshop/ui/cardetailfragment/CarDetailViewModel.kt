@@ -1,4 +1,4 @@
-package com.example.carsshop.ui.carDetailFragment
+package com.example.carsshop.ui.cardetailfragment
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

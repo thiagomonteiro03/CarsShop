@@ -1,4 +1,4 @@
-package com.example.carsshop.ui.carListFragment
+package com.example.carsshop.ui.carlistfragment
 
 import android.content.Context
 import android.os.Bundle
@@ -13,20 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.carsshop.R
 import com.example.carsshop.databinding.CarsListFragmentBinding
 import com.example.carsshop.model.CarModel
-import com.example.carsshop.service.CarRepository
 import com.example.carsshop.service.CarRepositoryClass
 import com.example.carsshop.utils.navigateWithAnimations
 import kotlinx.android.synthetic.main.cars_list_fragment.*
 import java.util.*
 import android.net.ConnectivityManager
 
-import android.net.NetworkInfo
-
-import android.net.NetworkCapabilities
-
-import android.os.Build
-import android.os.Handler
-import okio.Timeout
 import kotlin.concurrent.schedule
 
 
@@ -157,6 +149,7 @@ class CarListFragment : Fragment() {
         binding?.swiperefresh.let {
             it!!.setOnRefreshListener {
                 loadItems()
+                refreshAdapter()
             }
         }
     }
