@@ -5,6 +5,7 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.carsshop.R
 import com.example.carsshop.model.CarModel
 import com.example.carsshop.service.CarRepository
 import kotlinx.coroutines.launch
@@ -19,6 +20,8 @@ class CarListViewModel(private val repository: CarRepository) : ViewModel() {
 
     val error : MutableLiveData<Boolean> = MutableLiveData()
 
+    val errorMessage : MutableLiveData<String> = MutableLiveData()
+
     fun loadCars(carList : ArrayList<CarModel>, page: Int) {
         loading.value = true
 
@@ -32,7 +35,19 @@ class CarListViewModel(private val repository: CarRepository) : ViewModel() {
             var carListApi: List<CarModel>? = null
             if (it.isSuccessful){
                 carListApi = it.body() as List<CarModel>?
-            } else if (carListApi == null)error.value = true
+            } else{
+                if (carListApi == null){
+                    error.value = true
+                }
+
+                when(it.raw().code){
+                    400 -> errorMessage.value = R.string.connection_error_400.toString()
+                    401 -> errorMessage.value = R.string.connection_error_401.toString()
+                    403 -> errorMessage.value = R.string.connection_error_403.toString()
+                    500 -> errorMessage.value = R.string.connection_error_500.toString()
+                    503 -> errorMessage.value = R.string.connection_error_503.toString()
+                }
+            }
 
             if(!carListApi.isNullOrEmpty()) {
                 carList.addAll(carListApi)

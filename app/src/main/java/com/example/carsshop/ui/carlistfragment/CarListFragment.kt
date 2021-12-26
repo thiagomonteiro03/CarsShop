@@ -203,6 +203,10 @@ class CarListFragment : Fragment() {
         viewModel.error.observe(viewLifecycleOwner, {
             if (it) Toast.makeText(requireContext(), R.string.any_error_occurrent, Toast.LENGTH_LONG).show()
         })
+
+        viewModel.errorMessage.observe(viewLifecycleOwner, {
+            Toast.makeText(requireContext(), it , Toast.LENGTH_LONG).show()
+        })
     }
 
 }

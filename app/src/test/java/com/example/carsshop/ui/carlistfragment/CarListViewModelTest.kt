@@ -2,6 +2,7 @@ package com.example.carsshop.ui.carlistfragment
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import com.example.carsshop.R
 import com.example.carsshop.model.CarModel
 import com.example.carsshop.service.CarRepository
 import com.nhaarman.mockitokotlin2.verify
@@ -24,9 +25,8 @@ class CarListViewModelTest {
 
     @Mock
     private lateinit var carsObserver: Observer<ArrayList<CarModel>>
-
     @Mock
-    private lateinit var errorObserver: Observer<Boolean>
+    private lateinit var errorObserver: Observer<String>
 
     private lateinit var viewModel: CarListViewModel
 
@@ -71,7 +71,7 @@ class CarListViewModelTest {
         `when`(responseBody.source()).thenThrow(RuntimeException())
         val resultServerError = MockRepository(Response.error(401, responseBody))
         viewModel = CarListViewModel(resultServerError)
-        viewModel.error.observeForever(errorObserver)
+        viewModel.errorMessage.observeForever(errorObserver)
 
         // Act
         runBlocking {
@@ -79,7 +79,7 @@ class CarListViewModelTest {
         }
 
         // Assert
-        verify(errorObserver).onChanged(true)
+        verify(errorObserver).onChanged(R.string.connection_error_401.toString())
     }
 }
 

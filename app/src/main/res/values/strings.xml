@@ -14,5 +14,10 @@
     <!--    Api feedback-->
     <string name="any_error_occurrent">Ocorreu algum erro inesperado no download das informações.</string>
     <string name="connection_error">Não foi identificado conexão com internet.</string>
+    <string name="connection_error_400">Ocorreu um erro de conexão, erro 400.</string>
+    <string name="connection_error_401">Ocorreu um erro de conexão, erro 401.</string>
+    <string name="connection_error_403">Ocorreu um erro de conexão, erro 403.</string>
+    <string name="connection_error_500">Ocorreu um erro de conexão, erro 500.</string>
+    <string name="connection_error_503">Ocorreu um erro de conexão, erro 503.</string>
 
 </resources>
