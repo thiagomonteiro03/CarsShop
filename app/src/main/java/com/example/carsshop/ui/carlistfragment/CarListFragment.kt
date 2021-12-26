@@ -149,6 +149,8 @@ class CarListFragment : Fragment() {
     fun setSwipeRefresh(){
         binding?.swiperefresh.let {
             it!!.setOnRefreshListener {
+                position = 1
+                tempCarList.clear()
                 loadItems()
                 refreshAdapter()
             }

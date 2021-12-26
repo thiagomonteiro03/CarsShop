@@ -26,7 +26,7 @@ class CarDetailFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CarDetailViewModel::class.java)
+        viewModel = ViewModelProvider(this)[CarDetailViewModel::class.java]
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
