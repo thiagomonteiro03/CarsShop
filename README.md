@@ -37,5 +37,5 @@ https://github.com/thiagomonteiro03/CarsShop.git
 
 ## Preview
 
-![carsShopGif](https://user-images.githubusercontent.com/60589333/147411341-569d8036-ee6d-4045-a4a9-e62fdd937cbc.gif)
+![carsShopPreview](https://user-images.githubusercontent.com/60589333/147411603-ade2cc05-a279-4dd1-8ce4-e44d0b398e23.gif)
 
