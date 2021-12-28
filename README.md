@@ -30,6 +30,8 @@ https://github.com/thiagomonteiro03/CarsShop.git
   - [Test Junit](https://developer.android.com/jetpack/androidx/releases/test)
 - [Mockito](https://site.mockito.org/)
 - [MVVM Architecture](https://developer.android.com/jetpack/guide?gclid=Cj0KCQiAwqCOBhCdARIsAEPyW9nSLRR9wpjyczOEb-6sCh859FePC5dZeSGOAVUbfZ2vPio3BB6l3b8aAu-DEALw_wcB&gclsrc=aw.ds)
+- [Coroutines](https://developer.android.com/courses/pathways/android-coroutines)
+- [View Model](https://developer.android.com/topic/libraries/architecture/viewmodel)
 - [Retrofit](https://github.com/square/retrofit)
 - [Glide](https://github.com/bumptech/glide)
 - [GSON Converter](https://github.com/square/retrofit/tree/master/retrofit-converters/gson)
