@@ -19,6 +19,11 @@ Um projeto de teste criado por mim no prazo de 5 dias, utilizando a [API da Webm
 https://github.com/thiagomonteiro03/CarsShop.git
 ```
 
+## Arquitetura
+Aplicativo desenvolvido com base na arquitetura MVVM que é recomendada pela maioria dos desenvolvedores android. Foi escolhida esta arquitetura pois ela facilita muito os testes unitários e também organiza de forma mais clean as views e os dados separadamente.
+
+![1_5kNXJ7aFSGJvuh4r4egpTg](https://user-images.githubusercontent.com/60589333/108504293-69c24e00-7294-11eb-98e4-d956527b89e7.png)
+
 
 ## Frameworks e tecnologias utilizadas
 - [Jetpack](https://developer.android.com/jetpack)
