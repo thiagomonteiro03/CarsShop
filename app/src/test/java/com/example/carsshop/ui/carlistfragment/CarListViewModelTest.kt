@@ -26,7 +26,7 @@ class CarListViewModelTest {
     @Mock
     private lateinit var carsObserver: Observer<ArrayList<CarModel>>
     @Mock
-    private lateinit var errorObserver: Observer<String>
+    private lateinit var errorObserver: Observer<Int>
 
     private lateinit var viewModel: CarListViewModel
 
@@ -79,7 +79,7 @@ class CarListViewModelTest {
         }
 
         // Assert
-        verify(errorObserver).onChanged(R.string.connection_error_401.toString())
+        verify(errorObserver).onChanged(R.string.connection_error_401)
     }
 }
 
